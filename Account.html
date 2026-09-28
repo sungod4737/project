@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account - Hometube</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous" defer></script>
+
+    <style>
+         :root {
+            --sidebar-width: 72px;
+            --navbar-height: 56px;
+        }
+        
+        html,
+        body {
+            width: 100%;
+            overflow-x: hidden;
+            background-color: #f9f9f9;
+        }
+        
+        .topNavbar {
+            min-height: var(--navbar-height);
+            z-index: 1030;
+        }
+        
+        .sidebar {
+            width: var(--sidebar-width);
+            height: calc(100vh - var(--navbar-height));
+            position: sticky;
+            top: var(--navbar-height);
+            background-color: #fff;
+            flex-shrink: 0;
+            overflow-y: auto;
+        }
+        
+        .sidebar .nav-link {
+            color: #0f0f0f;
+            padding: 12px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .sidebar .nav-link:hover {
+            background-color: #e5e5e5;
+        }
+        
+        .sidebar .nav-link.active {
+            background-color: #f8d7da;
+            color: #dc3545;
+        }
+        
+        .sidebar .nav-link i {
+            font-size: 20px;
+        }
+        
+        .notificationDropdown,
+        .profileDropdown {
+            width: clamp(270px, 85vw, 320px);
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+        
+        .notificationItem:hover,
+        .profileDropdown .dropdown-item:hover {
+            background-color: #f8d7da;
+            color: #dc3545;
+        }
+        
+        .profileDropdown .dropdown-item:active,
+        .profileDropdown .dropdown-item.active {
+            background-color: #dc3545;
+            color: #fff;
+        }
+        
+        .profileDropdown .dropdown-item {
+            padding: 10px 16px;
+            font-size: 14px;
+        }
+        
+        .searchWrapper {
+            max-width: 500px;
+            flex-grow: 1;
+        }
+        
+        .form-control:focus,
+        .btn:focus,
+        .btn-outline-danger:focus {
+            border-color: #dc3545 !important;
+            box-shadow: 0 0 0 0.25rem rgba(220, 53, 69, 0.25) !important;
+        }
+        
+        .bottomNav {
+            height: 56px;
+            background-color: #fff;
+            border-top: 1px solid #dee2e6;
+            z-index: 1020;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+        }
+        
+        .bottomNav .nav-link {
+            color: #0f0f0f;
+            padding: 6px 0;
+            font-size: 11px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+        }
+        
+        .bottomNav .nav-link i {
+            font-size: 18px;
+            margin-bottom: 2px;
+        }
+        
+        .bottomNav .nav-link.active {
+            color: #dc3545;
+            font-weight: bold;
+        }
+        
+        .profile-banner {
+            height: 160px;
+            background: linear-gradient(135deg, #dc3545 0%, #b02a37 100%);
+            border-top-left-radius: 0.5rem;
+            border-top-right-radius: 0.5rem;
+        }
+        
+        .profile-avatar-wrapper {
+            margin-top: -50px;
+        }
+        
+        .avatar-circle-sm {
+            width: 36px;
+            height: 36px;
+            background-color: #dc3545;
+            color: #ffffff !important;
+            font-weight: bold;
+            font-size: 16px;
+            border-radius: 50%;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-transform: uppercase;
+            line-height: 1 !important;
+        }
+        
+        .profile-avatar {
+            width: 100px;
+            height: 100px;
+            background-color: #dc3545;
+            color: #ffffff !important;
+            font-size: 44px;
+            font-weight: bold;
+            border: 4px solid #ffffff;
+            border-radius: 50%;
+            display: flex !important;
+            align-items: center !important;
+            justify-content: center !important;
+            text-transform: uppercase;
+            line-height: 1 !important;
+            box-shadow: 0 4px 8px rgba(220, 53, 69, 0.2);
+        }
+        
+        .stat-card {
+            transition: transform 0.15s ease-in-out, border-color 0.2s;
+            cursor: pointer;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-2px);
+            border: 1px solid #dc3545 !important;
+        }
+        
+        @media (max-width: 575.98px) {
+            .searchWrapper {
+                max-width: 140px;
+            }
+            .searchWrapper:focus-within {
+                max-width: 100%;
+            }
+            main {
+                padding-bottom: 70px !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-light bg-white border-bottom sticky-top topNavbar p-0">
+        <div class="container-fluid h-100 d-flex align-items-center justify-content-between px-2 px-sm-3 flex-nowrap">
+
+            <div class="d-flex align-items-center flex-shrink-0">
+                <a href="Index.html" class="navbar-brand d-flex align-items-center me-0 text-decoration-none">
+                    <i class="fa-solid fa-house text-danger me-2 fs-4"></i>
+                    <span class="fw-bold fs-5 text-dark">Hometube</span>
+                </a>
+            </div>
+
+            <form class="searchWrapper mx-2">
+                <div class="input-group input-group-sm">
+                    <input class="form-control text-center" type="search" placeholder="Search videos..." aria-label="Search">
+                    <button class="btn btn-outline-danger px-2 px-sm-3" type="submit">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </button>
+                </div>
+            </form>
+
+            <div class="d-flex align-items-center gap-1 gap-sm-2 flex-shrink-0">
+                <a class="btn btn-light rounded-circle border-0 bg-transparent p-2 text-danger" href="Upload.html" title="Upload Video">
+                    <i class="fa-solid fa-video fs-5"></i>
+                </a>
+
+                <div class="dropdown">
+                    <button class="btn btn-light rounded-circle position-relative border-0 bg-transparent p-2" type="button" id="notifDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-bell fs-5 text-dark"></i>
+                    </button>
+
+                    <ul class="dropdown-menu dropdown-menu-end shadow notificationDropdown p-0 mt-2 border-0" aria-labelledby="notifDropdown">
+                        <li class="p-3 border-bottom d-flex justify-content-between align-items-center bg-light">
+                            <h6 class="mb-0 fw-bold text-danger">Notifications</h6>
+                            <i class="fa-solid fa-gear text-secondary cursor-pointer"></i>
+                        </li>
+                        <li>
+                            <div class="notificationItem d-flex align-items-start p-3 border-bottom">
+                                <i class="fa-solid fa-circle-user fs-3 me-3 text-danger flex-shrink-0"></i>
+                                <div>
+                                    <p class="mb-1 small fw-bold">Welcome to Hometube!</p>
+                                    <small class="text-muted">Just now</small>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="dropdown">
+                    <button class="btn p-0 border-0 bg-transparent" type="button" id="accountDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="avatar-circle-sm shadow-sm" id="navAvatarLetter"></div>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end shadow profileDropdown p-2 mt-2 border-0" aria-labelledby="accountDropdown">
+                        <li>
+                            <a class="dropdown-item rounded fw-bold text-danger" href="Account.html" id="dropdownUserName"></a>
+                        </li>
+                        <li><a class="dropdown-item rounded" href="AddAccount.html"><i class="fa-solid fa-user-plus me-2 text-danger"></i>Add Account</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item rounded text-danger" href="#" id="logoutBtn"><i class="fa-solid fa-right-from-bracket me-2"></i>Sign Out</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+        </div>
+    </nav>
+
+    <div class="d-flex w-100">
+
+        <aside class="sidebar p-2 border-end d-none d-md-block">
+            <ul class="nav nav-pills flex-column gap-2">
+                <li class="nav-item">
+                    <a href="Index.html" class="nav-link" title="Home">
+                        <i class="fa-solid fa-house"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="Favorites.html" class="nav-link" title="Favorites">
+                        <i class="fa-solid fa-heart"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="History.html" class="nav-link" title="History">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="YourVideos.html" class="nav-link" title="Your Videos">
+                        <i class="fa-solid fa-circle-play"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="SharedVideos.html" class="nav-link" title="Shared Videos">
+                        <i class="fa-solid fa-share-nodes"></i>
+                    </a>
+                </li>
+            </ul>
+        </aside>
+
+        <main id="main-content" class="flex-grow-1 p-3 p-md-4 min-vh-100" style="min-width: 0;">
+            <div class="container-fluid max-width-lg px-0">
+
+                <div class="card border-0 shadow-sm mb-4">
+                    <div class="profile-banner d-flex align-items-end justify-content-end p-3">
+                        <button class="btn btn-sm btn-light text-danger fw-bold shadow-sm">
+                            <i class="fa-solid fa-camera me-1"></i> Edit Cover
+                        </button>
+                    </div>
+                    <div class="card-body px-4 pb-4">
+                        <div class="d-flex flex-column flex-sm-row align-items-center align-items-sm-end justify-content-between text-center text-sm-start">
+                            <div class="d-flex flex-column flex-sm-row align-items-center align-items-sm-end gap-3">
+
+                                <div class="profile-avatar-wrapper position-relative">
+                                    <div class="profile-avatar" id="mainAvatarLetter"></div>
+                                    <button class="btn btn-sm btn-danger rounded-circle position-absolute bottom-0 end-0 p-1 px-2 border border-white" style="font-size: 11px;">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </button>
+                                </div>
+
+                                <div>
+                                    <h4 class="fw-bold mb-0 text-dark" id="displayProfileName"></h4>
+                                    <p class="text-danger fw-bold mb-0" id="displayProfileHandle"></p>
+                                </div>
+                            </div>
+                            <div class="mt-3 mt-sm-0">
+                                <a href="YourVideos.html" class="btn btn-outline-danger btn-sm me-2">
+                                    <i class="fa-solid fa-video me-1"></i> Manage Videos
+                                </a>
+                                <a href="AddAccount.html" class="btn btn-danger btn-sm">
+                                    <i class="fa-solid fa-user-plus me-1"></i> Add Account
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-6 col-md-3">
+                        <div class="card border-0 shadow-sm text-center p-3 stat-card">
+                            <i class="fa-solid fa-eye text-danger fs-3 mb-2"></i>
+                            <h5 class="fw-bold mb-0" id="displayViews">0</h5>
+                            <small class="text-muted">Total Views</small>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="card border-0 shadow-sm text-center p-3 stat-card">
+                            <i class="fa-solid fa-users text-danger fs-3 mb-2"></i>
+                            <h5 class="fw-bold mb-0" id="displaySubscribers">0</h5>
+                            <small class="text-muted">Subscribers</small>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="card border-0 shadow-sm text-center p-3 stat-card">
+                            <i class="fa-solid fa-film text-danger fs-3 mb-2"></i>
+                            <h5 class="fw-bold mb-0" id="displayUploads">0</h5>
+                            <small class="text-muted">Videos Uploaded</small>
+                        </div>
+                    </div>
+                    <div class="col-6 col-md-3">
+                        <div class="card border-0 shadow-sm text-center p-3 stat-card">
+                            <i class="fa-solid fa-heart text-danger fs-3 mb-2"></i>
+                            <h5 class="fw-bold mb-0" id="displayLikes">0</h5>
+                            <small class="text-muted">Total Likes</small>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+
+    </div>
+
+    <nav class="bottomNav d-md-none">
+        <div class="container h-100 p-0">
+            <div class="row h-100 g-0">
+                <div class="col text-center">
+                    <a href="Index.html" class="nav-link h-100">
+                        <i class="fa-solid fa-house"></i>
+                        <span>Home</span>
+                    </a>
+                </div>
+                <div class="col text-center">
+                    <a href="Favorites.html" class="nav-link h-100">
+                        <i class="fa-solid fa-heart"></i>
+                        <span>Favorites</span>
+                    </a>
+                </div>
+                <div class="col text-center">
+                    <a href="History.html" class="nav-link h-100">
+                        <i class="fa-solid fa-clock-rotate-left"></i>
+                        <span>History</span>
+                    </a>
+                </div>
+                <div class="col text-center">
+                    <a href="Account.html" class="nav-link h-100 active">
+                        <i class="fa-solid fa-circle-user"></i>
+                        <span>Account</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <script src="Homtube.js" defer></script>
+</body>
+
+</html>

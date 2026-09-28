@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hometube - Search Results</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="bg-light">
+    <!-- Main Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom sticky-top">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand d-flex align-items-center fw-bold text-danger" href="Index.html">
+                <i class="fa-solid fa-play-circle fs-3 me-2"></i>
+                <span>Hometube</span>
+            </a>
+
+            <div id="searchTabContainer" class="mx-auto my-2 my-lg-0 w-50"></div>
+
+            <div class="d-flex align-items-center gap-3">
+                <a href="Upload.html" class="btn btn-outline-danger btn-sm rounded-pill">
+                    <i class="fa-solid fa-upload me-1"></i> Upload
+                </a>
+                <a href="Index.html" class="btn btn-outline-secondary btn-sm rounded-pill">
+                    <i class="fa-solid fa-house me-1"></i> Home
+                </a>
+                <a href="Favorites.html" class="btn btn-outline-secondary btn-sm rounded-pill">
+                    <i class="fa-solid fa-heart me-1"></i> Favorites
+                </a>
+                <a href="History.html" class="btn btn-outline-secondary btn-sm rounded-pill">
+                    <i class="fa-solid fa-clock-rotate-left me-1"></i> History
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search Results Header -->
+    <div class="bg-white border-bottom py-3 px-4 shadow-sm">
+        <div class="container d-flex justify-content-between align-items-center">
+            <h5 class="fw-bold mb-0">
+                <i class="fa-solid fa-magnifying-glass me-2 text-danger"></i> Search results for: <span id="searchQueryLabel" class="text-danger">"All"</span>
+            </h5>
+            <span id="resultCountBadge" class="badge bg-secondary rounded-pill">0 videos</span>
+        </div>
+    </div>
+
+    <!-- Main Results Grid -->
+    <main class="container my-4">
+        <div class="row g-4">
+            <!-- Sidebar Filters -->
+            <div class="col-12 col-md-3">
+                <div class="card border-0 shadow-sm p-3 rounded-4 bg-white sticky-md-top" style="top: 80px;">
+                    <h6 class="fw-bold mb-3"><i class="fa-solid fa-filter me-2 text-danger"></i>Filter By Category</h6>
+                    <div class="d-flex flex-column gap-2" id="searchCategoryFilters">
+                        <button class="btn btn-sm btn-danger text-start category-btn rounded-pill px-3" onclick="filterSearchPageByCategory('All', this)">All Categories</button>
+                        <button class="btn btn-sm btn-outline-secondary text-start category-btn rounded-pill px-3" onclick="filterSearchPageByCategory('Music', this)">Music</button>
+                        <button class="btn btn-sm btn-outline-secondary text-start category-btn rounded-pill px-3" onclick="filterSearchPageByCategory('Gaming', this)">Gaming</button>
+                        <button class="btn btn-sm btn-outline-secondary text-start category-btn rounded-pill px-3" onclick="filterSearchPageByCategory('Education', this)">Education</button>
+                        <button class="btn btn-sm btn-outline-secondary text-start category-btn rounded-pill px-3" onclick="filterSearchPageByCategory('Entertainment', this)">Entertainment</button>
+                        <button class="btn btn-sm btn-outline-secondary text-start category-btn rounded-pill px-3" onclick="filterSearchPageByCategory('Tech', this)">Tech</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video Grid -->
+            <div class="col-12 col-md-9">
+                <div class="row g-4" id="searchResultsGrid"></div>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="Homtube.js"></script>
+</body>
+
+</html>

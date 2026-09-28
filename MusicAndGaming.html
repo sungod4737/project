@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomeTube - Gaming</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        body {
+            background-color: #0f0f0f;
+            color: #f1f1f1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1.5rem 1rem;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #ff0000;
+            text-decoration: none;
+        }
+        
+        .search-box {
+            flex: 1;
+            max-width: 480px;
+            display: flex;
+        }
+        
+        .search-box input {
+            width: 100%;
+            padding: 0.6rem 1rem;
+            background: #121212;
+            border: 1px solid #333;
+            border-radius: 20px 0 0 20px;
+            color: #fff;
+            outline: none;
+        }
+        
+        .search-box button {
+            padding: 0.6rem 1.2rem;
+            background: #222;
+            border: 1px solid #333;
+            border-left: none;
+            border-radius: 0 20px 20px 0;
+            color: #fff;
+            cursor: pointer;
+        }
+        
+        .auth-area {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            background: #272727;
+            color: #fff;
+            border: none;
+            border-radius: 18px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            text-decoration: none;
+        }
+        
+        .btn:hover {
+            background: #383838;
+        }
+        
+        .btn-primary {
+            background: #cc0000;
+        }
+        
+        .btn-primary:hover {
+            background: #e60000;
+        }
+        
+        .tabs-nav {
+            display: flex;
+            gap: 1rem;
+            border-bottom: 1px solid #272727;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+        }
+        
+        .nav-link {
+            color: #aaa;
+            padding: 0.75rem 1.2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            position: relative;
+            white-space: nowrap;
+        }
+        
+        .nav-link:hover {
+            color: #fff;
+        }
+        
+        .nav-link.active {
+            color: #fff;
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #ff0000;
+            border-radius: 2px 2px 0 0;
+        }
+        
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .video-card {
+            background-color: #181818;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #272727;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .video-card iframe {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            border: none;
+        }
+        
+        .video-info {
+            padding: 0.85rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .video-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        .video-channel {
+            font-size: 0.8rem;
+            color: #aaa;
+        }
+        
+        .card-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+        
+        .like-btn {
+            background: none;
+            border: none;
+            color: #888;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .like-btn.liked {
+            color: #ff4d4d;
+        }
+    </style>
+</head>
+
+<body data-page="gaming">
+
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">HomeTube</a>
+            <div class="search-box">
+                <input type="text" id="search-input" placeholder="Search gaming videos...">
+                <button id="search-btn">Search</button>
+            </div>
+            <div class="auth-area" id="auth-container"></div>
+        </header>
+
+        <nav class="tabs-nav">
+            <a href="index.html" class="nav-link">Music</a>
+            <a href="gaming.html" class="nav-link active">Gaming</a>
+            <a href="favorites.html" class="nav-link">Favorites</a>
+            <a href="history.html" class="nav-link">History</a>
+            <a href="upload.html" class="nav-link">+ Upload</a>
+        </nav>
+
+        <main>
+            <div class="video-grid" id="video-grid"></div>
+        </main>
+    </div>
+
+    <script src="hometube.js"></script>
+</body>
+
+</html>

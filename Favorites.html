@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HomeTube - Favorites</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+        
+        body {
+            background-color: #0f0f0f;
+            color: #f1f1f1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 1.5rem 1rem;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .logo {
+            font-size: 1.4rem;
+            font-weight: bold;
+            color: #ff0000;
+            text-decoration: none;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            background: #272727;
+            color: #fff;
+            border: none;
+            border-radius: 18px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn:hover {
+            background: #383838;
+        }
+        
+        .tabs-nav {
+            display: flex;
+            gap: 1rem;
+            border-bottom: 1px solid #272727;
+            margin-bottom: 2rem;
+            overflow-x: auto;
+        }
+        
+        .nav-link {
+            color: #aaa;
+            padding: 0.75rem 1.2rem;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            position: relative;
+            white-space: nowrap;
+        }
+        
+        .nav-link:hover,
+        .nav-link.active {
+            color: #fff;
+        }
+        
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background-color: #ff0000;
+            border-radius: 2px 2px 0 0;
+        }
+        
+        .section-header {
+            margin-bottom: 1.5rem;
+        }
+        
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .video-card {
+            background-color: #181818;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid #272727;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .video-card video {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: #000;
+        }
+        
+        .video-info {
+            padding: 1rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .video-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+        }
+        
+        .video-channel {
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+        
+        .video-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 0.5rem;
+        }
+        
+        .action-btn {
+            background: #272727;
+            color: #fff;
+            border: none;
+            padding: 0.4rem 0.8rem;
+            border-radius: 12px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+        
+        .action-btn:hover {
+            background: #383838;
+        }
+        
+        .action-btn.active {
+            background: #ff0000;
+        }
+        
+        .btn-delete {
+            background: transparent;
+            color: #888;
+        }
+        
+        .btn-delete:hover {
+            color: #ff4444;
+            background: transparent;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 4rem 1rem;
+            color: #888;
+            grid-column: 1 / -1;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <a href="index.html" class="logo">HomeTube</a>
+            <a href="Account.html" class="btn">My Account</a>
+        </header>
+
+        <nav class="tabs-nav">
+            <a href="index.html" class="nav-link">Home</a>
+            <a href="favorites.html" class="nav-link active">Favorites</a>
+            <a href="history.html" class="nav-link">History</a>
+            <a href="upload.html" class="nav-link">+ Upload</a>
+        </nav>
+
+        <main>
+            <div class="section-header">
+                <h2>Liked Videos</h2>
+            </div>
+            <div class="video-grid" id="favorites-grid"></div>
+        </main>
+    </div>
+    <script src="hometube.js"></script>
+</body>
+
+</html>
